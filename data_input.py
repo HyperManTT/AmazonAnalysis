@@ -16,7 +16,8 @@ from sklearn.preprocessing import scale
 
 script_dir = os.getcwd()
 
-os.chdir('/Volumes/Expansion/Amazon_Review_Data')
+# os.chdir('/Volumes/Expansion/Amazon_Review_Data')
+os.chdir(script_dir)
 
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
 METADATA_COLS = ['asin', 'price', 'brand']
