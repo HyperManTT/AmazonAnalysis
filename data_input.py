@@ -253,7 +253,7 @@ def cluster_product_data(df):
     for i in range(len(existing_2d)):
         # print("Datapoint:", existing_2d[i], "label:", labels[i])
         plt.plot(existing_2d[i][0], existing_2d[i][1], colors[labels[i]], markersize=10)
-        if i == 5000:
+        if i == 10000:
             break
 
     plt.xlabel("PC1")
@@ -341,7 +341,7 @@ def cluster_product_without_pca(df):
     for i in range(len(df_without_asin)):
         # print("Datapoint:", existing_2d[i], "label:", labels[i])
         plt.plot(df_without_asin[i][0], df_without_asin[i][1], colors[labels[i]], markersize=10)
-        if i == 500:
+        if i == 10000:
             break
 
     plt.xlabel("Total Upvotes (Scaled)")
