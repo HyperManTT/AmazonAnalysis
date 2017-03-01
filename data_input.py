@@ -22,8 +22,11 @@ os.chdir(script_dir)
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
 METADATA_COLS = ['asin', 'price', 'brand']
 
-DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
-METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
+# DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
+DATA_FILE = 'aggressive_dedup.json.gz'
+
+# METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
+METADATA_FILE = 'metadata.json.gz'
 
 
 # kydef.org/AmazonDataset/
