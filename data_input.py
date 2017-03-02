@@ -15,18 +15,20 @@ from sklearn.preprocessing import scale
 
 
 script_dir = os.getcwd()
+script_type = "TEST"
 
-# os.chdir('/Volumes/Expansion/Amazon_Review_Data')
-os.chdir(script_dir)
+if script_type == "TEST":
+    DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
+    METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
+    os.chdir('/Volumes/Expansion/Amazon_Review_Data')
+else:
+    DATA_FILE = 'aggressive_dedup.json.gz'
+    METADATA_FILE = 'metadata.json.gz'
+    os.chdir(script_dir)
+
 
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
 METADATA_COLS = ['asin', 'price', 'brand']
-
-# DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
-DATA_FILE = 'aggressive_dedup.json.gz'
-
-# METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
-METADATA_FILE = 'metadata.json.gz'
 
 
 # kydef.org/AmazonDataset/
@@ -467,17 +469,17 @@ def explo_reviewer_analysis(df):
 
 
 if __name__ == '__main__':
-    print "Getting Product Means..."
-    get_product_means(df)
-    print "Getting Product Mode..."
-    get_mode_reviewed(df)
-    print "Getting Product Median..."
-    get_median_reviewed(df)
-    print "Getting Review Distribution..."
-    get_review_distribution(df)
-
-    print "Getting most and least expensive products..."
-    get_most_and_least_expensive_high_review_product(df)
+    # print "Getting Product Means..."
+    # get_product_means(df)
+    # print "Getting Product Mode..."
+    # get_mode_reviewed(df)
+    # print "Getting Product Median..."
+    # get_median_reviewed(df)
+    # print "Getting Review Distribution..."
+    # get_review_distribution(df)
+    #
+    # print "Getting most and least expensive products..."
+    # get_most_and_least_expensive_high_review_product(df)
     # new_df = merged_df[['upvotes', 'overall']].copy()
 
     # Add in some extra columns to the dataset based on the analysis we want to perform
@@ -485,6 +487,9 @@ if __name__ == '__main__':
     df['average_rating'] = df['overall'].groupby(df['asin']).transform('mean')
     df['user_avg_rating'] = df['overall'].groupby(df['reviewerID']).transform('mean')
     df['avg_helpfulness'] = df['helpfulness'].groupby(df['asin']).transform('mean')
+
+    print df.info(memory_usage='deep')
+    sys.exit()
 
     print "Clustering Product Data..."
     cluster_product_data(df)
