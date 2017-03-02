@@ -15,12 +15,16 @@ from sklearn.preprocessing import scale
 
 
 script_dir = os.getcwd()
-script_type = "TEST"
+script_type = "MAC"
 
-if script_type == "TEST":
+if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
     METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
     os.chdir('/Volumes/Expansion/Amazon_Review_Data')
+elif script_dir == 'WIN':
+    DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
+    METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
+    os.chdir(script_dir)
 else:
     DATA_FILE = 'aggressive_dedup.json.gz'
     METADATA_FILE = 'metadata.json.gz'
@@ -30,6 +34,7 @@ else:
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
 METADATA_COLS = ['asin', 'price', 'brand']
 
+start = dt.datetime.now()
 
 # kydef.org/AmazonDataset/
 
