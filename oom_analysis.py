@@ -6,13 +6,13 @@ from sqlalchemy import create_engine
 
 
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
-METADATA_COLS = ['asin', 'price', 'brand']
-chunksize = 20000
-j = 0
+METADATA_COLS = ['asin', 'price']
+
+disk_engine = create_engine('sqlite:///amazon.db')
 
 
 script_dir = os.getcwd()
-script_type = "SERVER"
+script_type = "MAC"
 
 if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
@@ -38,7 +38,8 @@ def parse(path):
 
 def get_df(path, metadata=False):
     i = 0
-    df = {}
+    # df = {}
+    index_start = 1
     for d in parse(path):
         if not metadata:  # Extract only the columns we are interested in to save memory
             d['review_length'] = len(d['reviewText'])
@@ -57,12 +58,57 @@ def get_df(path, metadata=False):
                 if keys not in METADATA_COLS:
                     del d[keys]
 
-        df[i] = d
+        # df[i] = d
+        try:
+            # print d
+            df = pd.DataFrame.from_dict(d, orient='index')
+            df.index = [index_start]
+            # print df.index
+            if not metadata:
+                df.columns = REVIEW_COLS
+                df.to_sql('reviews', disk_engine, if_exists='append')
+            else:
+                df.columns = METADATA_COLS
+                df.to_sql('meta', disk_engine, if_exists='append')
+            index_start = df.index[-1] + 1
+        except Exception as e:
+            # print str(e)
+            pass
         print '{} seconds: completed {} rows'.format((dt.datetime.now() - start).seconds, i)
         i += 1
-    return pd.DataFrame.from_dict(df, orient='index')
+    return  # pd.DataFrame.from_dict(df, orient='index')
+
+
+def parse_data(path, metadata=False):
+    chunksize = 20000
+    j = 0
+    index_start = 1
+
+    for df in pd.read_json(path, chunksize=chunksize, iterator=True, encoding='utf-8'):
+
+        df = df.rename(columns={c: c.replace(' ', '') for c in df.columns})  # Remove spaces from columns
+
+        df.index += index_start
+
+        # Remove the un-interesting columns
+        if not metadata:
+            columns = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
+            dbname = 'reviews'
+        else:
+            columns = ['asin', 'price', 'brand']
+            dbname = 'meta'
+        for c in df.columns:
+            if c not in columns:
+                df = df.drop(c, axis=1)
+
+        j += 1
+        print '{} seconds: completed {} rows'.format((dt.datetime.now() - start).seconds, j * chunksize)
+
+        df.to_sql(dbname, disk_engine, if_exists='append')
+        index_start = df.index[-1] + 1
 
 print "Creating Dataframes..."
-df = get_df(DATA_FILE)
+get_df(REVIEW_COLS, metadata=False)
+# parse_data(METADATA_FILE, metadata=True)
 print "Dataframes created!"
 # print sum(1 for i in parse(DATA_FILE))
