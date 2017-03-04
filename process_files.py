@@ -82,8 +82,10 @@ def get_df(path, metadata=False):
 # print "Dataframes created!"
 print "Processing MetaData"
 for metadata_file in os.listdir(METADATA_PATH):
-    get_df(os.path.join(os.getcwd(), metadata_file))
+    dir_join = os.path.join(os.getcwd(), METADATA_PATH)
+    get_df(os.path.join(dir_join, metadata_file))
 
 print "Processing Review Data"
 for reviewdata_file in os.listdir(DATA_PATH):
-    get_df(os.path.join(os.getcwd(), reviewdata_file))
+    dir_join = os.path.join(os.getcwd(), DATA_PATH)
+    get_df(os.path.join(dir_join, reviewdata_file))
