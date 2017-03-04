@@ -33,7 +33,7 @@ else:
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
 METADATA_COLS = ['asin', 'price', 'brand']
 
-start = dt.datetime.now()
+# start = dt.datetime.now()
 
 # kydef.org/AmazonDataset/
 
