@@ -14,7 +14,7 @@ from sklearn.preprocessing import scale
 
 
 script_dir = os.getcwd()
-script_type = "MAC"
+script_type = "SERVER"
 
 if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
@@ -40,7 +40,10 @@ start = dt.datetime.now()
 def parse(path):
     g = gzip.open(path, 'rb')
     for l in g:
-        yield eval(l)
+        try:
+            yield eval(l)
+        except:
+            pass
 
 
 def get_df(path, metadata=False):
@@ -155,19 +158,6 @@ def get_review_distribution(df):
 
     write_df_tocsv(merged_group, 'review_distribution.csv')
 
-    # grouped3 = df.groupby(by='asin')['overall'].std()
-
-    # grouped = grouped.to_frame()
-    # grouped['skew'] = np.where(grouped['overall'] > 3, 'positive', 'negative')
-    # grouped.ix[grouped.overall == 3, 'skew'] = 'symmetrical'
-    # grouped.columns = ['meanReviews', 'skew']
-    #print grouped
-    # print grouped2
-    # print grouped3
-
-    # write_df_tocsv(grouped, 'review_distribution.csv')
-    # grouped.to_csv('review_distribution.csv')
-
 
 def get_user_reviews(df):
 
@@ -259,7 +249,7 @@ def cluster_product_data(df):
     for i in range(len(existing_2d)):
         # print("Datapoint:", existing_2d[i], "label:", labels[i])
         plt.plot(existing_2d[i][0], existing_2d[i][1], colors[labels[i]], markersize=10)
-        if i == 10000:
+        if i == 50000:
             break
 
     plt.xlabel("PC1")
@@ -298,7 +288,7 @@ def cluster_user_data(df):
     for i in range(len(df_wo_reviewerID)):
         # print("Datapoint:", existing_2d[i], "label:", labels[i])
         plt.plot(df_wo_reviewerID[i][0], df_wo_reviewerID[i][1], colors[labels[i]], markersize=10)
-        if i == 10000:
+        if i == 50000:
             break
 
     plt.xlabel("Total Upvotes (Scaled)")
