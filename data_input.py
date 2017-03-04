@@ -50,6 +50,7 @@ def get_df(path, metadata=False):
     i = 0
     df = {}
     for d in parse(path):
+        print i
         if not metadata:  # Extract only the columns we are interested in to save memory
             d['review_length'] = len(d['reviewText'])
             d['summary_length'] = len(d['summary'])
