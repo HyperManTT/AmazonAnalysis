@@ -25,8 +25,8 @@ elif script_dir == 'WIN':
     METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
     os.chdir(script_dir)
 else:
-    DATA_FILE = 'aggressive_dedup.json.gz'
-    METADATA_FILE = 'metadata.json.gz'
+    DATA_PATH = os.path.join(script_dir, 'userSplit')
+    METADATA_PATH = os.path.join(script_dir, 'metaSplit')
     os.chdir(script_dir)
 
 
@@ -36,6 +36,9 @@ METADATA_COLS = ['asin', 'price', 'brand']
 # start = dt.datetime.now()
 
 # kydef.org/AmazonDataset/
+os.mkdir(os.getcwd(), 'processed_data')
+pickle_path = os.path.join(os.getcwd(), 'processed_data')
+
 
 def parse(path):
     g = gzip.open(path, 'rb')
@@ -47,6 +50,7 @@ def parse(path):
 
 
 def get_df(path, metadata=False):
+    file_name_appender = path[-4:]
     i = 0
     df = {}
     for d in parse(path):
@@ -70,15 +74,31 @@ def get_df(path, metadata=False):
                         del d[keys]
 
             df[i] = d
-            i += 1
         except:
             pass
-    return pd.DataFrame.from_dict(df, orient='index')
+    print "Storing Dataframe..."
+    data_frame = pd.DataFrame.from_dict(df, orient='index')
+    if not metadata:
+        file_name = "user_data_" + str(file_name_appender) + ".p"
+    else:
+        file_name = "metadata_" + str(file_name_appender) + ".p"
+    file_name_appender += 1
+    data_frame.to_pickle(os.path.join(pickle_path, file_name))
+    return  # pd.DataFrame.from_dict(df, orient='index')
 
 
-print "Creating Dataframes..."
-df = get_df(DATA_FILE)
-print "Dataframes created!"
+# print "Creating Dataframes..."
+# get_df(DATA_FILE)
+# sys.exit()
+# print "Dataframes created!"
+print "Processing MetaData"
+for metadata_file in os.listdir(METADATA_PATH):
+    get_df(os.path.join(os.getcwd(), metadata_file))
+
+print "Processing Review Data"
+for reviewdata_file in os.listdir(DATA_PATH):
+    get_df(os.path.join(os.getcwd(), reviewdata_file))
+
 
 merged_df = None
 
