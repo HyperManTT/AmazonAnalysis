@@ -8,11 +8,8 @@ from sqlalchemy import create_engine
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
 METADATA_COLS = ['asin', 'price']
 
-disk_engine = create_engine('sqlite:///amazon.db')
-
-
 script_dir = os.getcwd()
-script_type = "MAC"
+script_type = "WIN"
 
 if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
@@ -28,9 +25,11 @@ else:
     os.chdir(script_dir)
 
 start = dt.datetime.now()
+disk_engine = create_engine('sqlite:///amazon.db')
 
 
 def parse(path):
+    # print path
     g = gzip.open(path, 'rb')
     for l in g:
         yield eval(l)
@@ -38,9 +37,9 @@ def parse(path):
 
 def get_df(path, metadata=False):
     i = 0
-    # df = {}
     index_start = 1
     for d in parse(path):
+        df = {}
         if not metadata:  # Extract only the columns we are interested in to save memory
             d['review_length'] = len(d['reviewText'])
             d['summary_length'] = len(d['summary'])
@@ -54,25 +53,30 @@ def get_df(path, metadata=False):
                 except ZeroDivisionError:
                     d['helpfulness'] = 0.0
         else:
+            if 'price' not in d.keys():
+                continue
             for keys in d.keys():
                 if keys not in METADATA_COLS:
                     del d[keys]
 
-        # df[i] = d
+        df[i] = d
         try:
-            # print d
-            df = pd.DataFrame.from_dict(d, orient='index')
-            df.index = [index_start]
+            # print df
+            df = pd.DataFrame.from_dict(df, orient='index')
+            # df.index = [index_start]
             # print df.index
             if not metadata:
                 df.columns = REVIEW_COLS
                 df.to_sql('reviews', disk_engine, if_exists='append')
             else:
+                # print df
                 df.columns = METADATA_COLS
                 df.to_sql('meta', disk_engine, if_exists='append')
-            index_start = df.index[-1] + 1
+            index_start += 1
+            # print index_start
         except Exception as e:
-            # print str(e)
+            # print df
+            print str(e)
             pass
         print '{} seconds: completed {} rows'.format((dt.datetime.now() - start).seconds, i)
         i += 1
@@ -108,7 +112,10 @@ def parse_data(path, metadata=False):
         index_start = df.index[-1] + 1
 
 print "Creating Dataframes..."
-get_df(REVIEW_COLS, metadata=False)
+# get_df(METADATA_FILE, metadata=True)
 # parse_data(METADATA_FILE, metadata=True)
 print "Dataframes created!"
 # print sum(1 for i in parse(DATA_FILE))
+
+df = pd.read_sql_query('SELECT count(*) FROM meta', disk_engine)
+print df.head()
