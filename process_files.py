@@ -2,6 +2,22 @@ import os
 import pandas as pd
 import gzip
 import sys
+import contextlib
+
+
+@contextlib.contextmanager
+def patch_gzip_for_partial():
+    """
+    Context manager that replaces gzip.GzipFile._read_eof with a no-op.
+
+    This is useful when decompressing partial files, something that won't
+    work if GzipFile does it's checksum comparison.
+
+    """
+    _read_eof = gzip.GzipFile._read_eof
+    gzip.GzipFile._read_eof = lambda *args, **kwargs: None
+    yield
+    gzip.GzipFile._read_eof = _read_eof
 
 script_dir = os.getcwd()
 script_type = "SERVER"
@@ -30,12 +46,14 @@ pickle_path = os.path.join(os.getcwd(), 'processed_data')
 
 
 def parse(path):
-    g = gzip.open(path, 'rb')
-    for l in g:
-        try:
-            yield eval(l)
-        except:
-            pass
+    # g = gzip.open(path, 'rb')
+    with patch_gzip_for_partial():
+        gzip.GzipFile(path).open()
+        for l in g:
+            try:
+                yield eval(l)
+            except:
+                pass
 
 
 def get_df(path, metadata=False):
