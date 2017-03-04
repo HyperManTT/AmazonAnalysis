@@ -24,7 +24,8 @@ METADATA_COLS = ['asin', 'price', 'brand']
 
 # start = dt.datetime.now()
 
-os.mkdir(os.path.join(os.getcwd(), 'processed_data'))
+if not os.path.exists(os.path.join(os.getcwd(), 'processed_data')):
+    os.mkdir(os.path.join(os.getcwd(), 'processed_data'))
 pickle_path = os.path.join(os.getcwd(), 'processed_data')
 
 

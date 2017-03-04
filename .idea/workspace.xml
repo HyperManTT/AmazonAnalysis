@@ -43,8 +43,8 @@
       <file leaf-file-name="process_files.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process_files.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+            <state relative-caret-position="284">
+              <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -361,7 +361,14 @@
       <option name="project" value="LOCAL" />
       <updated>1488666503688</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Changed script type from MAC to SERVER">
+      <created>1488666580845</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1488666580845</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -407,7 +414,8 @@
     <MESSAGE value="Commented start date line" />
     <MESSAGE value="Added in script to process data separately. Switched to splitting files into separate files" />
     <MESSAGE value="Fixed bug with creating pickle directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug with creating pickle directory" />
+    <MESSAGE value="Changed script type from MAC to SERVER" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed script type from MAC to SERVER" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -542,8 +550,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process_files.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        <state relative-caret-position="284">
+          <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
