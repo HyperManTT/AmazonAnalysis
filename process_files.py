@@ -16,7 +16,7 @@ elif script_dir == 'WIN':
     os.chdir(script_dir)
 else:
     DATA_PATH = os.path.join(script_dir, 'userSplit')
-    METADATA_PATH = os.path.join(script_dir, 'metaSplit')
+    METADATA_PATH = os.path.join(script_dir, 'metaplit')
     os.chdir(script_dir)
 
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
