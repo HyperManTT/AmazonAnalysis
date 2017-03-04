@@ -39,11 +39,11 @@ def parse(path):
 
 
 def get_df(path, metadata=False):
+    print "Processing file: " + str(path)
     file_name_appender = path[-4:]
     i = 0
     df = {}
     for d in parse(path):
-        print i
         try:
             if not metadata:  # Extract only the columns we are interested in to save memory
                 d['review_length'] = len(d['reviewText'])
@@ -71,7 +71,6 @@ def get_df(path, metadata=False):
         file_name = "user_data_" + str(file_name_appender) + ".p"
     else:
         file_name = "metadata_" + str(file_name_appender) + ".p"
-    file_name_appender += 1
     data_frame.to_pickle(os.path.join(pickle_path, file_name))
     return  # pd.DataFrame.from_dict(df, orient='index')
 

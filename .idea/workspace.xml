@@ -43,8 +43,8 @@
       <file leaf-file-name="process_files.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process_files.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="90" column="32" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
+            <state relative-caret-position="74">
+              <caret line="72" column="64" lean-forward="false" selection-start-line="72" selection-start-column="64" selection-end-line="72" selection-end-column="64" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -389,7 +389,14 @@
       <option name="project" value="LOCAL" />
       <updated>1488666755651</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Fixed bug related to where I was referencing the paths of the split files from">
+      <created>1488666891468</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1488666891468</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -439,7 +446,8 @@
     <MESSAGE value="Added in check for directory existence" />
     <MESSAGE value="Renamed metaSplit to metasplit bc that's what it is named on the server" />
     <MESSAGE value="Renamed metaSplit to metasplit AGAIN bc apparently I can't type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed metaSplit to metasplit AGAIN bc apparently I can't type" />
+    <MESSAGE value="Fixed bug related to where I was referencing the paths of the split files from" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug related to where I was referencing the paths of the split files from" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -574,8 +582,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process_files.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="90" column="32" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
+        <state relative-caret-position="74">
+          <caret line="72" column="64" lean-forward="false" selection-start-line="72" selection-start-column="64" selection-end-line="72" selection-end-column="64" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
