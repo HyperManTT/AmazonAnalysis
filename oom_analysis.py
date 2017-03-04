@@ -5,16 +5,16 @@ import datetime as dt
 from sqlalchemy import create_engine
 
 
-REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
+REVIEW_COLS = ["reviewerID", 'asin', 'overall', 'review_length', 'summary_length', 'upvotes', 'helpfulness']
 METADATA_COLS = ['asin', 'price']
 
 script_dir = os.getcwd()
-script_type = "WIN"
+script_type = "MAC"
 
 if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
     METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
-    os.chdir('/Volumes/Expansion/Amazon_Review_Data')
+    # os.chdir('/Volumes/Expansion/Amazon_Review_Data')
 elif script_type == 'WIN':
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
     METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
@@ -43,15 +43,15 @@ def get_df(path, metadata=False):
         if not metadata:  # Extract only the columns we are interested in to save memory
             d['review_length'] = len(d['reviewText'])
             d['summary_length'] = len(d['summary'])
-            for keys in d.keys():
-                if keys not in REVIEW_COLS:
-                    del d[keys]
             if 'helpful' in d.keys():
                 d['upvotes'] = d['helpful'][0]
                 try:
                     d['helpfulness'] = round(float(d['helpful'][0]) / float(d['helpful'][1]), 2)
                 except ZeroDivisionError:
                     d['helpfulness'] = 0.0
+            for keys in d.keys():
+                if keys not in REVIEW_COLS:
+                    del d[keys]
         else:
             if 'price' not in d.keys():
                 continue
@@ -60,6 +60,7 @@ def get_df(path, metadata=False):
                     del d[keys]
 
         df[i] = d
+        # print df
         try:
             # print df
             df = pd.DataFrame.from_dict(df, orient='index')
@@ -111,11 +112,14 @@ def parse_data(path, metadata=False):
         df.to_sql(dbname, disk_engine, if_exists='append')
         index_start = df.index[-1] + 1
 
-print "Creating Dataframes..."
-# get_df(METADATA_FILE, metadata=True)
-# parse_data(METADATA_FILE, metadata=True)
-print "Dataframes created!"
-# print sum(1 for i in parse(DATA_FILE))
 
-df = pd.read_sql_query('SELECT count(*) FROM meta', disk_engine)
-print df.head()
+if not os.path.exists(os.path.join(os.getcwd(), 'amazon.db')):
+    print "Creating Dataframes..."
+    get_df(DATA_FILE)
+    get_df(METADATA_FILE, metadata=True)
+    # parse_data(METADATA_FILE, metadata=True)
+    print "Dataframes created!"
+    # print sum(1 for i in parse(DATA_FILE))
+
+# df = pd.read_sql_query('SELECT count(*) FROM meta', disk_engine)
+# print df.head()
