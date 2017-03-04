@@ -43,8 +43,8 @@
       <file leaf-file-name="process_files.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process_files.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="50" column="34" lean-forward="true" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+            <state relative-caret-position="255">
+              <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -76,8 +76,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="200" />
-    <option name="y" value="75" />
+    <option name="x" value="86" />
+    <option name="y" value="44" />
     <option name="width" value="1400" />
     <option name="height" value="758" />
   </component>
@@ -403,7 +403,14 @@
       <option name="project" value="LOCAL" />
       <updated>1488666995763</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Trying to monkeypatch Gzip library">
+      <created>1488667858519</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1488667858519</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -416,7 +423,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="200" y="75" width="1400" height="758" extended-state="0" />
+    <frame x="86" y="44" width="1400" height="758" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2574329" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -455,7 +462,8 @@
     <MESSAGE value="Renamed metaSplit to metasplit AGAIN bc apparently I can't type" />
     <MESSAGE value="Fixed bug related to where I was referencing the paths of the split files from" />
     <MESSAGE value="Added in some print statements to show progress and removed bug with incrememnting the file_appender" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added in some print statements to show progress and removed bug with incrememnting the file_appender" />
+    <MESSAGE value="Trying to monkeypatch Gzip library" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying to monkeypatch Gzip library" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -590,8 +598,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process_files.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="50" column="34" lean-forward="true" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+        <state relative-caret-position="255">
+          <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

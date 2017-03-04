@@ -48,7 +48,7 @@ pickle_path = os.path.join(os.getcwd(), 'processed_data')
 def parse(path):
     # g = gzip.open(path, 'rb')
     with patch_gzip_for_partial():
-        gzip.GzipFile(path).open()
+        g = gzip.open(path, 'rb')
         for l in g:
             try:
                 yield eval(l)
