@@ -231,7 +231,7 @@ def merge_metadata(df):
         if not os.path.exists(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME)):
             print "Creating Metadata Dataframe..."
             df2 = get_df(METADATA_FILE, metadata=True)
-            df.to_pickle(METADATA_PICKLE_FILENAME)
+            df2.to_pickle(METADATA_PICKLE_FILENAME)
             print "MetaData Dataframes created!"
         else:
             print "Reading pickled Metadata Dataframe"
