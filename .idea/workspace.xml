@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0cf3e35-4965-4748-825d-3473a2892ffc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_input.py" afterPath="$PROJECT_DIR$/data_input.py" />
     </list>
@@ -22,10 +21,10 @@
       <file leaf-file-name="data_input.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data_input.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="66" column="45" lean-forward="true" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+            <state relative-caret-position="150">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
-                <element signature="e#9345#11189#0" expanded="false" />
+                <element signature="e#9348#11192#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -83,8 +82,8 @@
         <option value="$PROJECT_DIR$/oom_analysis.py" />
         <option value="$PROJECT_DIR$/parallel_processing.py" />
         <option value="$PROJECT_DIR$/process_files.py" />
-        <option value="$PROJECT_DIR$/data_input.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/data_input.py" />
       </list>
     </option>
   </component>
@@ -430,7 +429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1488667906961</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Error checking galore and pickling processed dataframes">
+      <created>1488676087858</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1488676087858</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -503,7 +509,8 @@
     <MESSAGE value="Added in some print statements to show progress and removed bug with incrememnting the file_appender" />
     <MESSAGE value="Trying to monkeypatch Gzip library" />
     <MESSAGE value="Trying to monkeypatch Gzip library - Part 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trying to monkeypatch Gzip library - Part 2" />
+    <MESSAGE value="Error checking galore and pickling processed dataframes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Error checking galore and pickling processed dataframes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -648,10 +655,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data_input.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="66" column="45" lean-forward="true" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+        <state relative-caret-position="150">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="e#9345#11189#0" expanded="false" />
+            <element signature="e#9348#11192#0" expanded="false" />
           </folding>
         </state>
       </provider>

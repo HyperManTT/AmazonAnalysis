@@ -14,7 +14,7 @@ from sklearn.preprocessing import scale
 
 
 script_dir = os.getcwd()
-script_type = "MAC"
+script_type = "SERVER"
 
 if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
