@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0cf3e35-4965-4748-825d-3473a2892ffc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/parallel_processing.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_input.py" afterPath="$PROJECT_DIR$/data_input.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_metadata.py" afterPath="$PROJECT_DIR$/process_metadata.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_reviews.py" afterPath="$PROJECT_DIR$/process_reviews.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,11 +31,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="process_metadata.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="process_metadata.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/process_metadata.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-850">
-              <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+            <state relative-caret-position="1155">
+              <caret line="77" column="53" lean-forward="false" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="process_reviews.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/process_reviews.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="65" column="20" lean-forward="false" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -67,6 +77,7 @@
         <option value="$PROJECT_DIR$/output_file.txt" />
         <option value="$PROJECT_DIR$/process_metadata.py" />
         <option value="$PROJECT_DIR$/data_input.py" />
+        <option value="$PROJECT_DIR$/process_reviews.py" />
       </list>
     </option>
   </component>
@@ -466,7 +477,28 @@
       <option name="project" value="LOCAL" />
       <updated>1488766208141</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Removed unnecessary comments and changed name of file to 'process reviews'">
+      <created>1488766665976</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1488766665976</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Removed unnecessary comments and changed name of file to 'process reviews'">
+      <created>1488766693968</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1488766693968</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Changed variable to server">
+      <created>1488766743841</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1488766743841</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -480,9 +512,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="31" y="61" width="1400" height="758" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25670776" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25670776" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280116" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -544,7 +576,9 @@
     <MESSAGE value="Added in script to process metadata" />
     <MESSAGE value="Bug fix for metadata variable reference from df to df2" />
     <MESSAGE value="Made changes to the way the dataframes are created. Pickling them now." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made changes to the way the dataframes are created. Pickling them now." />
+    <MESSAGE value="Removed unnecessary comments and changed name of file to 'process reviews'" />
+    <MESSAGE value="Changed variable to server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed variable to server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -706,8 +740,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process_metadata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-850">
-          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+        <state relative-caret-position="1155">
+          <caret line="77" column="53" lean-forward="false" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/process_reviews.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="65" column="20" lean-forward="false" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

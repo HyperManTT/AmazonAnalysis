@@ -63,7 +63,7 @@ def get_df(path, metadata=False):
                         del d[keys]
 
             df[i] = d
-            if i % 100000 == 0:
+            if i % 2000000 == 0:
                 print "Pickling Dataframe " + str(file_name_appender) + "(" + str(i) + ")"
                 data_frame = pd.DataFrame.from_dict(df, orient='index')
                 if not metadata:
