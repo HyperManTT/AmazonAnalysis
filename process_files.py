@@ -5,20 +5,6 @@ import sys
 import contextlib
 
 
-@contextlib.contextmanager
-def patch_gzip_for_partial():
-    """
-    Context manager that replaces gzip.GzipFile._read_eof with a no-op.
-
-    This is useful when decompressing partial files, something that won't
-    work if GzipFile does it's checksum comparison.
-
-    """
-    _read_eof = gzip.GzipFile._read_eof
-    gzip.GzipFile._read_eof = lambda *args, **kwargs: None
-    yield
-    gzip.GzipFile._read_eof = _read_eof
-
 script_dir = os.getcwd()
 script_type = "SERVER"
 
@@ -46,14 +32,12 @@ pickle_path = os.path.join(os.getcwd(), 'processed_data')
 
 
 def parse(path):
-    # g = gzip.open(path, 'rb')
-    with patch_gzip_for_partial():
-        g = gzip.open(path, 'rb')
-        for l in g:
-            try:
-                yield eval(l)
-            except:
-                pass
+    g = gzip.open(path, 'rb')
+    for l in g:
+        try:
+            yield eval(l)
+        except:
+            pass
 
 
 def get_df(path, metadata=False):
@@ -97,10 +81,10 @@ def get_df(path, metadata=False):
 # get_df(DATA_FILE)
 # sys.exit()
 # print "Dataframes created!"
-print "Processing MetaData"
-for metadata_file in os.listdir(METADATA_PATH):
-    dir_join = os.path.join(os.getcwd(), METADATA_PATH)
-    get_df(os.path.join(dir_join, metadata_file))
+# print "Processing MetaData"
+# for metadata_file in os.listdir(METADATA_PATH):
+#     dir_join = os.path.join(os.getcwd(), METADATA_PATH)
+#     get_df(os.path.join(dir_join, metadata_file))
 
 print "Processing Review Data"
 for reviewdata_file in os.listdir(DATA_PATH):

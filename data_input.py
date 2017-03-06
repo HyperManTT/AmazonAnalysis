@@ -4,6 +4,7 @@ import numpy as np
 import gzip
 import sys
 import matplotlib.pyplot as plt
+from process_metadata import get_metadata_df
 
 from matplotlib import style
 style.use("ggplot")
@@ -14,80 +15,89 @@ from sklearn.preprocessing import scale
 
 
 script_dir = os.getcwd()
-script_type = "SERVER"
+# script_type = "SERVER"
+#
+# if script_type == "MAC":
+#     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
+#     METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
+#     os.chdir(script_dir)
+# elif script_dir == 'WIN':
+#     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
+#     METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
+#     os.chdir(script_dir)
+# else:
+#     DATA_FILE = 'aggressive_dedup.json.gz'
+#     METADATA_FILE = 'metadata.json.gz'
+#     os.chdir(script_dir)
+#
+#
+# REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
+# METADATA_COLS = ['asin', 'price', 'brand']
 
-if script_type == "MAC":
-    DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
-    METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
-    os.chdir(script_dir)
-elif script_dir == 'WIN':
-    DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
-    METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
-    os.chdir(script_dir)
-else:
-    DATA_FILE = 'aggressive_dedup.json.gz'
-    METADATA_FILE = 'metadata.json.gz'
-    os.chdir(script_dir)
-
-
-REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
-METADATA_COLS = ['asin', 'price', 'brand']
-
-DATA_PICKLE_FILENAME = 'reviews.p'
-METADATA_PICKLE_FILENAME = 'metadata.p'
 
 # kydef.org/AmazonDataset/
 
-def parse(path):
-    g = gzip.open(path, 'rb')
-    for l in g:
-        try:
-            yield eval(l)
-        except:
-            pass
+# def parse(path):
+#     g = gzip.open(path, 'rb')
+#     for l in g:
+#         try:
+#             yield eval(l)
+#         except:
+#             pass
+#
+#
+# def get_df(path, metadata=False):
+#     i = 0
+#     df = {}
+#     for d in parse(path):
+#         if i % 100000 == 0:
+#             print i
+#         try:
+#             if not metadata:  # Extract only the columns we are interested in to save memory
+#                 d['review_length'] = len(d['reviewText'])
+#                 d['summary_length'] = len(d['summary'])
+#                 for keys in d.keys():
+#                     if keys not in REVIEW_COLS:
+#                         del d[keys]
+#                 if 'helpful' in d.keys():
+#                     d['upvotes'] = d['helpful'][0]
+#                     try:
+#                         d['helpfulness'] = round(float(d['helpful'][0]) / float(d['helpful'][1]), 2)
+#                     except ZeroDivisionError:
+#                         d['helpfulness'] = 0.0
+#             else:
+#                 for keys in d.keys():
+#                     if keys not in METADATA_COLS:
+#                         del d[keys]
+#
+#             df[i] = d
+#             i += 1
+#         except:
+#             pass
+#     return pd.DataFrame.from_dict(df, orient='index')
 
 
-def get_df(path, metadata=False):
-    i = 0
-    df = {}
-    for d in parse(path):
-        if i % 100000 == 0:
-            print i
-        try:
-            if not metadata:  # Extract only the columns we are interested in to save memory
-                d['review_length'] = len(d['reviewText'])
-                d['summary_length'] = len(d['summary'])
-                for keys in d.keys():
-                    if keys not in REVIEW_COLS:
-                        del d[keys]
-                if 'helpful' in d.keys():
-                    d['upvotes'] = d['helpful'][0]
-                    try:
-                        d['helpfulness'] = round(float(d['helpful'][0]) / float(d['helpful'][1]), 2)
-                    except ZeroDivisionError:
-                        d['helpfulness'] = 0.0
-            else:
-                for keys in d.keys():
-                    if keys not in METADATA_COLS:
-                        del d[keys]
-
-            df[i] = d
-            i += 1
-        except:
-            pass
-    return pd.DataFrame.from_dict(df, orient='index')
-
-
-if not os.path.exists(os.path.join(os.getcwd(), DATA_PICKLE_FILENAME)):
-    print "Creating Reviews Dataframe..."
-    df = get_df(DATA_FILE)
-    df.to_pickle(DATA_PICKLE_FILENAME)
-    print "Dataframes created!"
-else:
-    print "Reading pickled Review Dataframe"
-    df = pd.read_pickle(os.path.join(os.getcwd(), DATA_PICKLE_FILENAME))
-
+# if not os.path.exists(os.path.join(os.getcwd(), DATA_PICKLE_FILENAME)):
+#     print "Creating Reviews Dataframe..."
+#     df = get_df(DATA_FILE)
+#     df.to_pickle(DATA_PICKLE_FILENAME)
+#     print "Dataframes created!"
+# else:
+#     print "Reading pickled Review Dataframe"
+#     df = pd.read_pickle(os.path.join(os.getcwd(), DATA_PICKLE_FILENAME))
+#
 merged_df = None
+
+METADATA_PICKLE_FILENAME = 'metadata.p'
+
+pickle_path = os.path.join(os.getcwd(), 'processed_data')
+
+df = []
+
+for each_df in os.listdir(pickle_path):
+    df.append(pd.read_pickle(os.path.join(pickle_path, each_df)))
+
+df = pd.concat(df)
 
 
 def write_df_tocsv(df, file_name):
@@ -229,10 +239,7 @@ def merge_metadata(df):
         global merged_df
         # We use a different dataset to link the reviews and metadata. Original dataframe didn't have this info.
         if not os.path.exists(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME)):
-            print "Creating Metadata Dataframe..."
-            df2 = get_df(METADATA_FILE, metadata=True)
-            df2.to_pickle(METADATA_PICKLE_FILENAME)
-            print "MetaData Dataframes created!"
+            df2 = get_metadata_df()
         else:
             print "Reading pickled Metadata Dataframe"
             df2 = pd.read_pickle(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME))

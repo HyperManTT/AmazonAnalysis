@@ -3,7 +3,7 @@ import gzip
 import pandas as pd
 
 script_dir = os.getcwd()
-script_type = "SERVER"
+script_type = "MAC"
 
 if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
@@ -66,14 +66,21 @@ def get_df(path, metadata=False):
     return pd.DataFrame.from_dict(df, orient='index')
 
 
-try:
-    if not os.path.exists(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME)):
-        print "Creating Metadata Dataframe..."
-        df2 = get_df(METADATA_FILE, metadata=True)
-        df2.to_pickle(METADATA_PICKLE_FILENAME)
-        print "MetaData Dataframes created!"
-    else:
-        print "Reading pickled Metadata Dataframe"
-        df2 = pd.read_pickle(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME))
-except Exception as e:
-    print str(e)
+def get_metadata_df():
+    try:
+        if not os.path.exists(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME)):
+            print "Creating Metadata Dataframe..."
+            df2 = get_df(METADATA_FILE, metadata=True)
+            df2.to_pickle(METADATA_PICKLE_FILENAME)
+            print "MetaData Dataframes created!"
+            return df2
+        else:
+            print "Reading pickled Metadata Dataframe"
+            df2 = pd.read_pickle(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME))
+            return df2
+    except Exception as e:
+        print str(e)
+
+
+if __name__ == "__main__":
+    get_metadata_df()
