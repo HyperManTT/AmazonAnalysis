@@ -225,7 +225,7 @@ def cluster_product_data(df):
         product_df = product_df[product_df.apply(lambda x: np.abs(x - x.mean()) / x.std() < 3).all(axis=1)]
         # print product_df[:10]
 
-        cluster_num = 4
+        cluster_num = 5
         df = product_df.dropna()
         # df.reset_index(drop=True, inplace=True)
 
@@ -251,11 +251,11 @@ def cluster_product_data(df):
         for i in range(len(existing_2d)):
             # print("Datapoint:", existing_2d[i], "label:", labels[i])
             plt.plot(existing_2d[i][0], existing_2d[i][1], colors[labels[i]], markersize=10)
-            if i == 50000:
+            if i == 500000:
                 break
 
         plt.xlabel("PC1")
-        plt.ylabel("APC2")
+        plt.ylabel("PC2")
         ax = plt.scatter(centroids[:, 0], centroids[:, 1], marker="x", s=150, linewidths=5, zorder=10)
         fig = ax.get_figure()
         fig.savefig(os.path.join(script_dir, 'cluster_product_data.jpg'))
@@ -295,7 +295,7 @@ def cluster_user_data(df):
         for i in range(len(df_wo_reviewerID)):
             # print("Datapoint:", existing_2d[i], "label:", labels[i])
             plt.plot(df_wo_reviewerID[i][0], df_wo_reviewerID[i][1], colors[labels[i]], markersize=10)
-            if i == 50000:
+            if i == 500000:
                 break
 
         plt.xlabel("Total Upvotes (Scaled)")
@@ -349,7 +349,7 @@ def cluster_product_without_pca(df):
         for i in range(len(df_without_asin)):
             # print("Datapoint:", existing_2d[i], "label:", labels[i])
             plt.plot(df_without_asin[i][0], df_without_asin[i][1], colors[labels[i]], markersize=10)
-            if i == 10000:
+            if i == 500000:
                 break
 
         plt.xlabel("Total Upvotes (Scaled)")
@@ -477,7 +477,7 @@ def explo_price_numreviews(df):
         ax = local_merge.plot(kind='bar', title='Number of Reviews vs Price of Items', fontsize=12, figsize=(10, 7))
         ax.set_xlabel('Item Price')
         ax.set_ylabel('Number of Reviews')
-        ax.set_xticks(ax.get_xticks()[::2])
+        ax.set_xticks(ax.get_xticks()[::100])
         fig = ax.get_figure()
         fig.savefig(os.path.join(script_dir, 'explo_price_numreviews.jpg'))
         fig.clf()
