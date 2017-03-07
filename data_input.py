@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import gzip
 import sys
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 from process_metadata import get_metadata_df
 
@@ -506,14 +509,14 @@ def explo_reviewer_analysis(df):
 
 
 if __name__ == '__main__':
-    print "Getting Product Means..."
-    get_product_means(df)
-    print "Getting Product Mode..."
-    get_mode_reviewed(df)
-    print "Getting Product Median..."
-    get_median_reviewed(df)
-    print "Getting Review Distribution..."
-    get_review_distribution(df)
+    # print "Getting Product Means..."
+    # get_product_means(df)
+    # print "Getting Product Mode..."
+    # get_mode_reviewed(df)
+    # print "Getting Product Median..."
+    # get_median_reviewed(df)
+    # print "Getting Review Distribution..."
+    # get_review_distribution(df)
 
     print "Getting most and least expensive products..."
     get_most_and_least_expensive_high_review_product(df)
