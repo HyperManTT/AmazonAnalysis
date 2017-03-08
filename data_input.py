@@ -51,7 +51,7 @@ def write_text_tofile(text):
 # This method is the correct one.
 def get_product_means(df):
     """
-    Assume that we are taking all the products that were reviewed and finding the average
+    We are taking all the products that were reviewed and finding the average
     number of reviews for that product compared to the total number of products
     :param df: The input dataframe containing all the review data
     :return: Mean review for each product
@@ -251,7 +251,7 @@ def cluster_product_data(df):
         for i in range(len(existing_2d)):
             # print("Datapoint:", existing_2d[i], "label:", labels[i])
             plt.plot(existing_2d[i][0], existing_2d[i][1], colors[labels[i]], markersize=10)
-            if i == 500000:
+            if i == 100000:
                 break
 
         plt.xlabel("PC1")
@@ -295,7 +295,7 @@ def cluster_user_data(df):
         for i in range(len(df_wo_reviewerID)):
             # print("Datapoint:", existing_2d[i], "label:", labels[i])
             plt.plot(df_wo_reviewerID[i][0], df_wo_reviewerID[i][1], colors[labels[i]], markersize=10)
-            if i == 500000:
+            if i == 100000:
                 break
 
         plt.xlabel("Total Upvotes (Scaled)")
@@ -349,7 +349,7 @@ def cluster_product_without_pca(df):
         for i in range(len(df_without_asin)):
             # print("Datapoint:", existing_2d[i], "label:", labels[i])
             plt.plot(df_without_asin[i][0], df_without_asin[i][1], colors[labels[i]], markersize=10)
-            if i == 500000:
+            if i == 100000:
                 break
 
         plt.xlabel("Total Upvotes (Scaled)")
@@ -518,40 +518,43 @@ if __name__ == '__main__':
     # print "Getting Review Distribution..."
     # get_review_distribution(df)
 
-    print "Getting most and least expensive products..."
-    get_most_and_least_expensive_high_review_product(df)
-    new_df = merged_df[['upvotes', 'overall']].copy()
-
-    # Add in some extra columns to the dataset based on the analysis we want to perform
-    df['total_upvotes'] = df['upvotes'].groupby(df['asin']).transform('sum')
-    df['average_rating'] = df['overall'].groupby(df['asin']).transform('mean')
-    df['user_avg_rating'] = df['overall'].groupby(df['reviewerID']).transform('mean')
-    df['avg_helpfulness'] = df['helpfulness'].groupby(df['asin']).transform('mean')
-
-    print "Clustering Product Data..."
-    cluster_product_data(df)
-    cluster_product_without_pca(df)
-    get_elbow_plot(df, ['total_upvotes', 'average_rating'])
-
-    print "Clustering Reviewer Data..."
-    # Create dataframe to infer reviewer information
-    reviewer_df = df[['reviewerID', 'total_upvotes', 'user_avg_rating']].copy()
-    reviewer_df = reviewer_df.drop_duplicates('reviewerID').set_index('reviewerID')
-    reviewer_df = reviewer_df[reviewer_df.apply(lambda x: np.abs(x - x.mean()) / x.std() < 3).all(axis=1)]
-    # print reviewer_df[:10]
-    cluster_user_data(reviewer_df)
-    get_elbow_plot(reviewer_df, ['total_upvotes', 'user_avg_rating'], name='reviewer_elbow_plot.jpg')
-
-    # Comparing the score and helpfulness attributes to find a correlation
-    print "Comparing Score and Helpfulness..."
-    compare_score_and_helpfulness(df)
-
-    print "Performing Exploratory Analysis"
-    # Perform some exploratory analysis
-    explo_reviewlen_helpfulness(df)
-    explo_summarylen_helpfulness(df)
-    explo_price_numreviews(df)
-    explo_reviewer_analysis(df)
+    print "Getting user reviews and most helpful user"
+    get_user_reviews(df)
+    get_most_helpful_reviewer(df)
+    # print "Getting most and least expensive products..."
+    # get_most_and_least_expensive_high_review_product(df)
+    # new_df = merged_df[['upvotes', 'overall']].copy()
+    #
+    # # Add in some extra columns to the dataset based on the analysis we want to perform
+    # df['total_upvotes'] = df['upvotes'].groupby(df['asin']).transform('sum')
+    # df['average_rating'] = df['overall'].groupby(df['asin']).transform('mean')
+    # df['user_avg_rating'] = df['overall'].groupby(df['reviewerID']).transform('mean')
+    # df['avg_helpfulness'] = df['helpfulness'].groupby(df['asin']).transform('mean')
+    #
+    # print "Clustering Product Data..."
+    # cluster_product_data(df)
+    # cluster_product_without_pca(df)
+    # get_elbow_plot(df, ['total_upvotes', 'average_rating'])
+    #
+    # print "Clustering Reviewer Data..."
+    # # Create dataframe to infer reviewer information
+    # reviewer_df = df[['reviewerID', 'total_upvotes', 'user_avg_rating']].copy()
+    # reviewer_df = reviewer_df.drop_duplicates('reviewerID').set_index('reviewerID')
+    # reviewer_df = reviewer_df[reviewer_df.apply(lambda x: np.abs(x - x.mean()) / x.std() < 3).all(axis=1)]
+    # # print reviewer_df[:10]
+    # cluster_user_data(reviewer_df)
+    # get_elbow_plot(reviewer_df, ['total_upvotes', 'user_avg_rating'], name='reviewer_elbow_plot.jpg')
+    #
+    # # Comparing the score and helpfulness attributes to find a correlation
+    # print "Comparing Score and Helpfulness..."
+    # compare_score_and_helpfulness(df)
+    #
+    # print "Performing Exploratory Analysis"
+    # # Perform some exploratory analysis
+    # explo_reviewlen_helpfulness(df)
+    # explo_summarylen_helpfulness(df)
+    # explo_price_numreviews(df)
+    # explo_reviewer_analysis(df)
 
 
 
