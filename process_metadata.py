@@ -3,7 +3,7 @@ import gzip
 import pandas as pd
 
 script_dir = os.getcwd()
-script_type = "SERVER"
+script_type = "MAC"
 
 if script_type == "MAC":
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
@@ -20,7 +20,7 @@ else:
 
 
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
-METADATA_COLS = ['asin', 'price', 'brand']
+METADATA_COLS = ['asin', 'price', 'title']
 
 DATA_PICKLE_FILENAME = 'reviews.p'
 METADATA_PICKLE_FILENAME = 'metadata.p'

@@ -56,15 +56,23 @@ def get_product_means(df):
     :param df: The input dataframe containing all the review data
     :return: Mean review for each product
     """
+    # try:
+    #     # The review counts for each product
+    #     item_counts = df['asin'].value_counts()
+    #     # print item_counts[:10]
+    #
+    #     # Total number of reviews
+    #     total_num_reviews = len(df.index)
+    #
+    #     mean_dataframe = item_counts/total_num_reviews
+    #     write_df_tocsv(mean_dataframe, 'product_means.csv')
+    #     return mean_dataframe
+    # except Exception as e:
+    #     print "Error getting product means"
+    #     print str(e)
+    #     pass
     try:
-        # The review counts for each product
-        item_counts = df['asin'].value_counts()
-        # print item_counts[:10]
-
-        # Total number of reviews
-        total_num_reviews = len(df.index)
-
-        mean_dataframe = item_counts/total_num_reviews
+        mean_dataframe = df.groupby(['asin'])['overall'].mean()
         write_df_tocsv(mean_dataframe, 'product_means.csv')
         return mean_dataframe
     except Exception as e:
@@ -171,6 +179,8 @@ def merge_metadata(df):
     try:
         global merged_df
         # We use a different dataset to link the reviews and metadata. Original dataframe didn't have this info.
+        if merged_df is not None:
+            return merged_df
         if not os.path.exists(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME)):
             df2 = get_metadata_df()
         else:
@@ -509,8 +519,8 @@ def explo_reviewer_analysis(df):
 
 
 if __name__ == '__main__':
-    # print "Getting Product Means..."
-    # get_product_means(df)
+    print "Getting Product Means..."
+    get_product_means(df)
     # print "Getting Product Mode..."
     # get_mode_reviewed(df)
     # print "Getting Product Median..."
@@ -518,11 +528,12 @@ if __name__ == '__main__':
     # print "Getting Review Distribution..."
     # get_review_distribution(df)
 
-    print "Getting user reviews and most helpful user"
-    get_user_reviews(df)
-    get_most_helpful_reviewer(df)
+    # print "Getting user reviews and most helpful user"
+    # get_user_reviews(df)
+    # get_most_helpful_reviewer(df)
     # print "Getting most and least expensive products..."
-    # get_most_and_least_expensive_high_review_product(df)
+    # print get_most_and_least_expensive_high_review_product(df)
+
     # new_df = merged_df[['upvotes', 'overall']].copy()
     #
     # # Add in some extra columns to the dataset based on the analysis we want to perform
@@ -555,8 +566,3 @@ if __name__ == '__main__':
     # explo_summarylen_helpfulness(df)
     # explo_price_numreviews(df)
     # explo_reviewer_analysis(df)
-
-
-
-
-
