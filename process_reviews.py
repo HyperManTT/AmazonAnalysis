@@ -3,6 +3,12 @@ import pandas as pd
 import gzip
 
 
+"""
+SCRIPT IS USED TO PROCESS THE REVIEW  DATAFILE
+
+The output files are stored in a directory called 'processed_data'
+"""
+
 script_dir = os.getcwd()
 script_type = "SERVER"
 

@@ -2,12 +2,18 @@ import os
 import gzip
 import pandas as pd
 
+"""
+SCRIPT IS USED TO PROCESS THE METADATA FILE
+
+The output is pickled to one output file - 'metadata.p'
+"""
+
 script_dir = os.getcwd()
 script_type = "MAC"
 
 if script_type == "MAC":
-    DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
-    METADATA_FILE = 'meta_Amazon_Instant_Video.json.gz'
+    DATA_FILE = 'reviews_Musical_Instruments.json.gz'
+    METADATA_FILE = 'meta_Musical_Instruments.json.gz'
     os.chdir(script_dir)
 elif script_dir == 'WIN':
     DATA_FILE = 'reviews_Amazon_Instant_Video.json.gz'
@@ -18,10 +24,11 @@ else:
     METADATA_FILE = 'metadata.json.gz'
     os.chdir(script_dir)
 
-
+# Define the columns we want to keep
 REVIEW_COLS = ["reviewerID", 'asin', 'helpful', 'overall', 'review_length', 'summary_length']
 METADATA_COLS = ['asin', 'price', 'title']
 
+# Define the name of the pickled files
 DATA_PICKLE_FILENAME = 'reviews.p'
 METADATA_PICKLE_FILENAME = 'metadata.p'
 
@@ -36,6 +43,13 @@ def parse(path):
 
 
 def get_df(path, metadata=False):
+    """
+    Main function that is used to generate the required metadata dataframe from the input file
+    and returns it. It also extracts only the columns we're interested in.
+    :param path: Path to the file containing the review data/metdata
+    :param metadata: Boolean to verify if review data or metadata is being passed in the function.
+    :return:
+    """
     i = 0
     df = {}
     for d in parse(path):
@@ -67,6 +81,10 @@ def get_df(path, metadata=False):
 
 
 def get_metadata_df():
+    """
+    Function that stores the metadata dataframe returned from the get_df function into a pickled file
+    :return: The metadata dataframe
+    """
     try:
         if not os.path.exists(os.path.join(os.getcwd(), METADATA_PICKLE_FILENAME)):
             print "Creating Metadata Dataframe..."
@@ -83,4 +101,5 @@ def get_metadata_df():
 
 
 if __name__ == "__main__":
-    get_metadata_df()
+    df = get_metadata_df().dropna()
+    print df[:10]
